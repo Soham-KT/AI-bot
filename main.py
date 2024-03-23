@@ -2,6 +2,8 @@ import pyttsx3
 import datetime
 import speech_recognition as sr
 import webbrowser as wb
+import pyautogui as pag
+import pyscreeze as pz
 
 engine = pyttsx3.init()
 
@@ -29,7 +31,7 @@ def wishme() -> None:
     speak("Hello sir, how may i assist you today?")
 
 
-def take_command():
+def take_command() -> str | None:
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print('Listening....')
@@ -50,6 +52,11 @@ def take_command():
     return query
 
 
+def screenshot():
+    ss = pz.screenshot()
+    ss.save('../AI-bot/Screenshots/ss.png')
+
+
 if __name__ == '__main__':
     wishme()
     # take_command()
@@ -68,6 +75,20 @@ if __name__ == '__main__':
             print(search_term)
             url = "https://www.google.com.tr/search?q={}".format(search_term)
             wb.open(url)
+
+        elif 'remember' in query:
+            speak('What do you want me to remember?')
+            note = take_command()
+            with open('data.txt', 'w') as f:
+                f.write(note)
+
+        elif 'remind' in query:
+            with open('data.txt', 'r') as f:
+                speak('You told me to remember that: ' + f.read())
+
+        elif 'screenshot' in query:
+            screenshot()
+            speak('Screenshot taken')
 
         elif 'offline' in query:
             speak('Going offline, have a good day sir!')
