@@ -3,7 +3,7 @@ import datetime
 import speech_recognition as sr
 import webbrowser as wb
 
-engine = pyttsx3.init('espeak')
+engine = pyttsx3.init()
 
 
 def speak(audio: str) -> None:
