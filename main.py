@@ -2,7 +2,6 @@ import pyttsx3
 import datetime
 import speech_recognition as sr
 import webbrowser as wb
-import pyautogui as pag
 import pyscreeze as pz
 
 engine = pyttsx3.init()
